@@ -5,3 +5,4 @@ scripts
 .vscode
 *temp*
 *pycache*
+.flake8
