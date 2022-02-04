@@ -1,20 +1,35 @@
 import argparse
-from index import Index
+from kws import KWS
 
 
 def main():
+    args = get_args()
+    kws = KWS()
+    kws.run_kws(args.ctm_filename, args.queries_filename, args.output_filename)
+
+
+def get_args():
     arg_parser = argparse.ArgumentParser()
 
     arg_parser.add_argument(
-        "--ctm", type=str, help="The path to the input CTM file", required=True
+        "--ctm_filename", type=str, help="The path to the input CTM file", required=True
+    )
+    arg_parser.add_argument(
+        "--queries_filename",
+        type=str,
+        help="The path to the queries XML file",
+        required=True,
+    )
+    arg_parser.add_argument(
+        "--output_filename",
+        type=str,
+        help="The path to which to write the output XML file",
+        required=True,
     )
 
     args = arg_parser.parse_args()
-    ctm_file = args.ctm
 
-    index = Index.from_ctm_file(ctm_file)
-
-    print(index.get_index().keys())
+    return args
 
 
 if __name__ == "__main__":
