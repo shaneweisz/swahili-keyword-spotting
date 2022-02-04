@@ -1,69 +1,53 @@
 from collections import defaultdict
-import argparse
-
-
-def main():
-    arg_parser = argparse.ArgumentParser()
-
-    arg_parser.add_argument(
-        "--ctm", type=str, help="The path to the input CTM file", required=True
-    )
-
-    args = arg_parser.parse_args()
-    ctm_file = args.ctm
-
-    index = Index(ctm_file)
-
-    index.build()
-
-    print(index.index.keys())
-
-
-class WordOccurrence:
-    def __init__(self, word, file, start_time, duration, score, next_word):
-        self.word = word
-        self.file = file
-        self.start_time = start_time
-        self.duration = duration
-        self.score = score
-        self.next_word = next_word
 
 
 class Index:
-    def __init__(self, ctm_file):
+    @classmethod
+    def from_ctm_file(cls, ctm_filename):
+        index = cls()
+        index.generate_index(ctm_filename)
+        return index
+
+    def generate_index(self, ctm_filename: str):
         self.index = defaultdict(list)
-        self.ctm_file = ctm_file
+        with open(ctm_filename) as ctm_file:
+            prev_word_entry = None
+            ctm_lines = ctm_file.readlines()
 
-    def build(self):
-        with open(self.ctm_file) as asr_file:
-            prev_word_occurrence = None
-            for line in asr_file.readlines():
-                line = line.strip("\n")
-                file, _, start_time, duration, word, score = line.split()
-                start_time = float(start_time)
-                duration = float(duration)
-                score = float(score)
+            for ctm_line in ctm_lines:
+                word_entry = self.word_entry_from_ctm_line(ctm_line)
 
-                word_occurence = WordOccurrence(
-                    word, file, start_time, duration, score, None
-                )
+                if prev_word_entry:
+                    prev_word_entry.next_word_entry = word_entry
 
-                if prev_word_occurrence:
-                    st = prev_word_occurrence.start_time
-                    dur = prev_word_occurrence.duration
-                    et = st + dur
-                    if start_time <= et + 0.5:
-                        prev_word_occurrence.next_word = word_occurence
+                self.add_word_entry_to_index(word_entry)
+                prev_word_entry = word_entry
 
-                self.index[word].append(word_occurence)
-                prev_word_occurrence = word_occurence
+    def word_entry_from_ctm_line(self, ctm_line: str):
+        ctm_line = ctm_line.strip("\n")
+        kwfile, _, tbeg, dur, token, score = ctm_line.split()
+        tbeg, dur, score = float(tbeg), float(dur), float(score)
+        word_entry = WordEntry(kwfile, tbeg, dur, token, score, None)
+        return word_entry
+
+    def add_word_entry_to_index(self, word_entry):
+        self.index[word_entry.word].append(word_entry)
+
+    def get_index(self):
+        return self.index
 
     def search(self, query):
+        # TODO
         pass
 
-    def __str__(self):
-        return "I am an Index object"
 
-
-if __name__ == "__main__":
-    main()
+class WordEntry:
+    # The reason we use `class`` here rather than `namedtuple`
+    # is because `next_word_entry` key needs to be mutable in the indexing algorithm
+    def __init__(self, kw_file, start_time, duration, word, score, next_word_entry):
+        self.kw_file = kw_file
+        self.start_time = start_time
+        self.duration = duration
+        self.word = word
+        self.score = score
+        self.next_word_entry = next_word_entry

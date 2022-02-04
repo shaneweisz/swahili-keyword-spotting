@@ -2,3 +2,6 @@ lib
 scoring
 scripts
 .venv
+.vscode
+*temp*
+*pycache*
