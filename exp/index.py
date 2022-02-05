@@ -5,7 +5,7 @@ class Index:
     TIME_BETWEEN_WORDS_IN_PHRASES = 0.5
 
     @classmethod
-    def from_ctm_file(cls, ctm_filename):
+    def from_ctm_file(cls, ctm_filename: str):
         index = cls()
         index.generate_index(ctm_filename)
         return index
@@ -103,7 +103,7 @@ class WordEntry:
         self.channel = channel
         self.start_time = float(start_time)
         self.duration = float(duration)
-        self.word = word
+        self.word = word.lower()
         self.score = float(score)
         self.next_word_entry = next_word_entry
 
