@@ -1,11 +1,10 @@
 import argparse
-from kws import KWS
+from kws import run_kws
 
 
 def main():
     args = get_args()
-    kws = KWS()
-    kws.run_kws(**vars(args))
+    run_kws(**vars(args))
 
 
 def get_args():

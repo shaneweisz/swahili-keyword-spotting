@@ -22,7 +22,7 @@ class KWSCommandBuilder:
         command = "python3 "
         command += f"{SRC_PATH}/main.py "
         command += f"--ctm_file {LIB_PATH}/ctms/{self.ctm_filename} "
-        command += f"--queries {LIB_PATH}/kws/{self.queries_filename} "
+        command += f"--queries_filename {LIB_PATH}/kws/{self.queries_filename} "
         command += f"--output_filename {OUTPUT_PATH}/{self.output_filename}"
         return command
 
