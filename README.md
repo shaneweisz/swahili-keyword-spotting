@@ -21,3 +21,10 @@ Create and activate python 3.9 virtual environment (3.9.7):
 python3.9 -m venv ~/MLMI14/.venv
 source ~/MLMI14/.venv/bin/activate
 ```
+
+## Usage
+
+To run the unit tests, run:
+```
+python3.9 -m unittest discover -v -s ./src -p "*test*.py"
+```

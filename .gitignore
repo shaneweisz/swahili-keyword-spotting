@@ -1,9 +1,12 @@
 lib
 scoring
 scripts
-.venv
-.vscode
+hits
+
 *temp*
 *pycache*
+*.xml
+
+.venv
+.vscode
 .flake8
-hits

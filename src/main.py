@@ -5,7 +5,7 @@ from kws import KWS
 def main():
     args = get_args()
     kws = KWS()
-    kws.run_kws(args.ctm_filename, args.queries_filename, args.output_filename)
+    kws.run_kws(**vars(args))
 
 
 def get_args():

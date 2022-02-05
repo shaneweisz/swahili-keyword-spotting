@@ -1,5 +1,5 @@
 import unittest
-from exp.index import Index
+from index import Index
 
 test_ctm_filename = "/homes/sw984/MLMI14/lib/ctms/reference.ctm"
 
@@ -18,15 +18,15 @@ class TestIndexer(unittest.TestCase):
     first_habari_entry = index.index["habari"][0]
 
     def test_duration_stored(self):
-        self.assertEquals(self.first_habari_entry.duration, 0.37)
+        self.assertEqual(self.first_habari_entry.duration, 0.37)
 
     def test_next_word(self):
         next_word_entry = self.first_habari_entry.next_word_entry
-        self.assertEquals(next_word_entry.word, "ya")
+        self.assertEqual(next_word_entry.word, "ya")
 
     def test_next_word_of_next_word(self):
         next_word_entry = self.first_habari_entry.next_word_entry
-        self.assertEquals(next_word_entry.next_word_entry.word, "mkubwa")
+        self.assertEqual(next_word_entry.next_word_entry.word, "mkubwa")
 
 
 if __name__ == "__main__":

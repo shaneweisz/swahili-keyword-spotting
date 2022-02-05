@@ -1,6 +1,5 @@
 # This contains a KWS class that takes in a CTM file, builds an indexer,
 # takes in a queries file, generates hits for each query, and writes it to a file
-from telnetlib import SE
 from typing import Dict, List
 from index import Index
 from index import SearchHit
@@ -30,7 +29,9 @@ class KWS:
         queries = {kwid: kwtext for kwid, kwtext in zip(kwids, kwtexts)}
         return queries
 
-    def generate_all_hits(self, queries: Dict, index: Index):
+    def generate_all_hits(
+        self, queries: Dict[str, str], index: Index
+    ) -> Dict[str, List[SearchHit]]:
         kwid_to_hits = dict()
         for kwid, kwtext in queries.items():
             kwid_to_hits[kwid] = index.search_for_all_hits(kwtext)
@@ -50,13 +51,14 @@ class KWS:
             output += f'tbeg="{hit.start_time}" '
             output += f'dur="{hit.duration}" '
             output += f'score="{hit.score}" '
-            output += f'decision="YES"/>\n'
+            output += 'decision="YES"/>\n'
         output += footer + "\n"
 
         return output
 
     def format_hits_output(self, kwid_to_hits):
-        header = '<kwslist kwlist_filename="IARPA-babel202b-v1.0d_conv-dev.kwlist.xml" language="swahili" system_id="">'
+        header = '<kwslist kwlist_filename="IARPA-babel202b-v1.0d_conv-dev.kwlist.xml" '
+        header += 'language="swahili" system_id="">'
         footer = "</kwslist>"
 
         output = header + "\n"
