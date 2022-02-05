@@ -47,13 +47,13 @@ class KWSCommandBuilder:
 
 
 class TestKwsScores(unittest.TestCase):
-    def testKwsOnReference(self):
+    def test_kwsForReference(self):
         asr_to_test = "reference"
         received_output = score_system(asr_to_test)
         expected_output = 1
         self.assertEqual(expected_output, received_output)
 
-    def testKwsOnDecode(self):
+    def test_kwsForDecode(self):
         asr_to_test = "decode"
         received_output = score_system(asr_to_test)
         expected_output = 0.31894

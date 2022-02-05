@@ -15,7 +15,7 @@ BABEL_OP2_202_10524_20131009_200043_inLine 1 9.02 0.580 mkubwa 1.0000
 
 class TestIndexer(unittest.TestCase):
     index = Index.from_ctm_file(test_ctm_filename)
-    first_habari_entry = index.get_index()["habari"][0]
+    first_habari_entry = index.index["habari"][0]
 
     def test_duration_stored(self):
         self.assertEquals(self.first_habari_entry.duration, 0.37)
