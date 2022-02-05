@@ -1,5 +1,5 @@
 import unittest
-from index import Index
+from exp.index import Index
 
 test_ctm_filename = "/homes/sw984/MLMI14/lib/ctms/reference.ctm"
 
