@@ -1,4 +1,4 @@
-from src.constants.paths import (
+from constants.paths import (
     OUTPUT_PATH,
     SRC_PATH,
     LIB_PATH,
@@ -20,7 +20,7 @@ class KWSCommandBuilder:
 
     def run_kws_command(self) -> str:
         command = "python3 "
-        command += f"{SRC_PATH}/main.py "
+        command += f"{SRC_PATH}/kws/main.py "
         command += f"--ctm {self.ctm_filename} "
         command += f"--queries {self.queries_filename} "
         command += f"--output {self.output_filename}"

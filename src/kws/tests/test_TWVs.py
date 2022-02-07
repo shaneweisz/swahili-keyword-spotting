@@ -1,8 +1,8 @@
 import subprocess
 import unittest
 
-from src.constants.paths import OUTPUT_PATH, SCORING_PATH
-from src.tests.helpers.scorer import get_TWV_for_ctm_file
+from constants.paths import OUTPUT_PATH, SCORING_PATH
+from tests.helpers.scorer import get_TWV_for_ctm_file
 
 
 class TestTWVs(unittest.TestCase):

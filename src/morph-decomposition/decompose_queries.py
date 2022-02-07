@@ -1,15 +1,9 @@
-from pathlib import Path
 from typing import Dict
 from bs4 import BeautifulSoup
-
-BASE_PATH = Path("/homes/sw984/MLMI14/")
-DCTS_PATH = BASE_PATH / "morph-decomposition" / "dcts"
-QUERIES_PATH = BASE_PATH / "queries"
-queries_dct_file_path = DCTS_PATH / "morph.kwslist.dct"
-queries_file_path = QUERIES_PATH / "queries.xml"
+from constants.paths import DCTS_PATH, QUERIES_PATH
 
 
-def main():
+def main(queries_dct_file_path, queries_file_path):
     word_to_morphs = build_word_to_morphs_dict(queries_dct_file_path)
     xml_str = get_xml_str_from_queries_file(queries_file_path)
     new_xml_str = replace_words_with_morphs(xml_str, word_to_morphs)
@@ -34,7 +28,7 @@ def get_xml_str_from_queries_file(queries_file_path):
 
 
 def replace_words_with_morphs(xml_str, word_to_morphs):
-    soup = BeautifulSoup(xml_str)
+    soup = BeautifulSoup(xml_str, "xml")
     keyword_list = soup.find_all("kw")
     for keyword in keyword_list:
         phrase = keyword.kwtext.text.lower()
@@ -53,4 +47,6 @@ def decompose_phrase_into_morphs(phrase, word_to_morphs: Dict[str, str]):
 
 
 if __name__ == "__main__":
-    main()
+    queries_dct_file_path = DCTS_PATH / "morph.kwslist.dct"
+    queries_file_path = QUERIES_PATH / "queries.xml"
+    main(queries_dct_file_path, queries_file_path)

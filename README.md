@@ -24,6 +24,12 @@ source ~/MLMI14/.venv/bin/activate
 
 ## Usage
 
+**NB**: The below must be run to allow relative imports within the packages
+
+```
+source set_pythonpath.sh
+```
+
 ### Running KWS on a CTM file
 
 To run KWS on a CTM file, place the CTM file (e.g. `example.ctm`) in the `ctms` folder and the

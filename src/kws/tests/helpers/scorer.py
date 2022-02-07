@@ -1,5 +1,5 @@
 import subprocess
-from src.tests.helpers.command_builder import KWSCommandBuilder
+from tests.helpers.command_builder import KWSCommandBuilder
 
 
 def get_TWV_for_ctm_file(ctm_filename: str, output_filename: str) -> float:

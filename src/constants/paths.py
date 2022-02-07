@@ -10,3 +10,5 @@ LIB_PATH = BASE_PATH / "lib"
 SRC_PATH = BASE_PATH / "src"
 SCRIPTS_PATH = BASE_PATH / "scripts"
 SCORING_PATH = BASE_PATH / "scoring"
+
+DCTS_PATH = LIB_PATH / "dicts"
