@@ -1,6 +1,6 @@
 from typing import Dict, List
 from index import Index, SearchHit
-from output_hits import format_hits_output, write_to_file
+from kws_output import format_hits_output, write_to_file
 from parse_queries import parse_queries_file
 
 

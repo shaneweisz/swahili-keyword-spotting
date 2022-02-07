@@ -21,9 +21,9 @@ class KWSCommandBuilder:
     def run_kws_command(self) -> str:
         command = "python3 "
         command += f"{SRC_PATH}/main.py "
-        command += f"--ctm_file {LIB_PATH}/ctms/{self.ctm_filename} "
-        command += f"--queries_filename {LIB_PATH}/kws/{self.queries_filename} "
-        command += f"--output_filename {OUTPUT_PATH}/{self.output_filename}"
+        command += f"--ctm {LIB_PATH}/ctms/{self.ctm_filename} "
+        command += f"--queries {LIB_PATH}/kws/{self.queries_filename} "
+        command += f"--output {OUTPUT_PATH}/{self.output_filename}"
         return command
 
     def score_hits_command(self) -> str:

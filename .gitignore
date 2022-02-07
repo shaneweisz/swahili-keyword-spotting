@@ -1,11 +1,14 @@
 lib
-scoring
-scripts
-hits
+
+scoring/**/Full-Occur*
+scoring/**/Ensemble*
+scoring/**/Readme.txt
+scoring/**/*.LOG
+scoring/**/*.kwslist.xml
+
 
 *temp*
 *pycache*
-*.xml
 
 .venv
 .vscode
