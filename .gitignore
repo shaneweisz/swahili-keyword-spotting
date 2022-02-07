@@ -1,11 +1,12 @@
 lib
+scoring-example
+scripts
 
 scoring/**/Full-Occur*
 scoring/**/Ensemble*
 scoring/**/Readme.txt
 scoring/**/*.LOG
 scoring/**/*.kwslist.xml
-
 
 *temp*
 *pycache*

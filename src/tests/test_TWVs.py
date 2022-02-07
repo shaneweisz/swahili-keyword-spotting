@@ -1,19 +1,19 @@
 import subprocess
 import unittest
 
-from constants.paths import OUTPUT_PATH, SCORING_PATH
-from scorer import get_TWV_for_ctm_file
+from src.constants.paths import OUTPUT_PATH, SCORING_PATH
+from src.tests.helpers.scorer import get_TWV_for_ctm_file
 
 
 class TestKwsTWVs(unittest.TestCase):
-    def test_kws_twv_on_reference(self):
+    def test_TWV_equals_1_for_reference_ctm(self):
         ctm_filename = "reference.ctm"
         output_filename = "test-reference.xml"
         received_twv = get_TWV_for_ctm_file(ctm_filename, output_filename)
         expected_twv = 1
         self.assertEqual(expected_twv, received_twv)
 
-    def test_kws_twv_on_decode(self):
+    def test_TWV_for_decode_ctm(self):
         ctm_filename = "decode.ctm"
         output_filename = "test-decode.xml"
         received_twv = get_TWV_for_ctm_file(ctm_filename, output_filename)
