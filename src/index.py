@@ -1,4 +1,5 @@
-from collections import defaultdict, namedtuple
+from collections import defaultdict
+from hit import Hit
 
 
 class Index:
@@ -32,7 +33,7 @@ class Index:
     def _add_word_entry_to_index(self, word_entry):
         self.index[word_entry.word].append(word_entry)
 
-    def search_for_all_hits(self, query):
+    def search(self, query):
         terms = query.split()
         first_term = terms[0]
         first_term_hits = self._get_word_entries_for_word(first_term)
@@ -106,6 +107,3 @@ class WordEntry:
         self.word = word.lower()
         self.score = float(score)
         self.next_word_entry = next_word_entry
-
-
-Hit = namedtuple("Hit", "kw_file,channel,start_time,duration,score")
