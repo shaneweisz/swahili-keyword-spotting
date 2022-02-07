@@ -24,7 +24,29 @@ source ~/MLMI14/.venv/bin/activate
 
 ## Usage
 
-To run the unit tests, run:
+### Running KWS on a CTM file
+
+To run KWS on a CTM file, place the CTM file (e.g. `example.ctm`) in the `ctms` folder and the
+queries XML file in the `queries` folder, then run:
+```
+python3 src/main.py --ctm example.ctm --queries queries.xml --output example-output.xml
+```
+
+This will output the XML hits output file to `outputs/example-output.xml`
+
+### Scoring the KWS output
+
+```
+scripts/score.sh output/example.xml scoring
+```
+
+### Getting the TWV for the KWS output
+
+```
+scripts/termselect.sh lib/terms/ivoov.map output/reference.xml scoring [all|iv|oov]
+```
+
+### Running the unit tests:
 ```
 python3.9 -m unittest discover -v -s ./src -p "*test*.py"
 ```
