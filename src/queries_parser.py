@@ -1,17 +1,18 @@
 from typing import Dict
+from bs4 import BeautifulSoup
 
 
 def parse_queries_file(queries_file_path: str) -> Dict[str, str]:
-    kwids = []
-    kwtexts = []
+    queries = {}
+
     with open(queries_file_path) as queries_file:
-        for line in queries_file.readlines():
-            line = line.strip("\n")
-            if "kwid" in line:
-                kwid = line[line.find('"') + 1 : -1 * len('">')]
-                kwids.append(kwid)
-            elif "kwtext" in line:
-                kwtext = line[line.find(">") + 1 : -1 * len("</kwtext>")]
-                kwtexts.append(kwtext)
-    queries = {kwid: kwtext for kwid, kwtext in zip(kwids, kwtexts)}
+        xml_str = queries_file.read()
+        soup = BeautifulSoup(xml_str, features="xml")
+
+    kws = soup.find_all("kw")
+    for kw in kws:
+        kwid = kw.get("kwid")
+        kwtext = kw.kwtext.text.lower()
+        queries[kwid] = kwtext
+
     return queries

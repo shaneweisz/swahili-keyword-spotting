@@ -5,7 +5,7 @@ from src.constants.paths import OUTPUT_PATH, SCORING_PATH
 from src.tests.helpers.scorer import get_TWV_for_ctm_file
 
 
-class TestKwsTWVs(unittest.TestCase):
+class TestTWVs(unittest.TestCase):
     def test_TWV_equals_1_for_reference_ctm(self):
         ctm_filename = "reference.ctm"
         output_filename = "test-reference.xml"
