@@ -29,7 +29,7 @@ source ~/MLMI14/.venv/bin/activate
 To run KWS on a CTM file, place the CTM file (e.g. `example.ctm`) in the `ctms` folder and the
 queries XML file in the `queries` folder, then run:
 ```
-python3 src/main.py --ctm example.ctm --queries queries.xml --output example-output.xml
+python3.9 src/main.py --ctm example.ctm --queries queries.xml --output example-output.xml
 ```
 
 This will output the XML hits output file to `outputs/example-output.xml`
@@ -44,6 +44,12 @@ scripts/score.sh output/example.xml scoring
 
 ```
 scripts/termselect.sh lib/terms/ivoov.map output/reference.xml scoring [all|iv|oov]
+```
+
+### Decomposing `queries.xml` into morphs
+
+```
+python3.9 morph-decomposition/decompose_queries.py
 ```
 
 ### Running the unit tests:
