@@ -1,10 +1,10 @@
 from typing import Dict
 
 
-def parse_queries_file(queries_filename: str) -> Dict[str, str]:
+def parse_queries_file(queries_file_path: str) -> Dict[str, str]:
     kwids = []
     kwtexts = []
-    with open(queries_filename) as queries_file:
+    with open(queries_file_path) as queries_file:
         for line in queries_file.readlines():
             line = line.strip("\n")
             if "kwid" in line:

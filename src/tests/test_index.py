@@ -1,7 +1,7 @@
 import unittest
 from index import Index
 
-test_ctm_filename = "/homes/sw984/MLMI14/lib/ctms/reference.ctm"
+test_ctm_file_path = "/homes/sw984/MLMI14/lib/ctms/reference.ctm"
 
 # First 5 lines of file:
 """
@@ -14,7 +14,7 @@ BABEL_OP2_202_10524_20131009_200043_inLine 1 9.02 0.580 mkubwa 1.0000
 
 
 class TestIndexer(unittest.TestCase):
-    index = Index.from_ctm_file(test_ctm_filename)
+    index = Index.from_ctm(test_ctm_file_path)
     first_habari_entry = index.index["habari"][0]
 
     def test_duration_stored(self):

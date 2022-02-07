@@ -6,14 +6,14 @@ class Index:
     TIME_BETWEEN_WORDS_IN_PHRASES = 0.5
 
     @classmethod
-    def from_ctm_file(cls, ctm_filename: str):
+    def from_ctm(cls, ctm_file_path: str):
         index = cls()
-        index.generate_index(ctm_filename)
+        index.generate_index(ctm_file_path)
         return index
 
-    def generate_index(self, ctm_filename: str):
+    def generate_index(self, ctm_file_path: str):
         self.index = defaultdict(list)
-        with open(ctm_filename) as ctm_file:
+        with open(ctm_file_path) as ctm_file:
             prev_word_entry = None
 
             for ctm_line in ctm_file.readlines():

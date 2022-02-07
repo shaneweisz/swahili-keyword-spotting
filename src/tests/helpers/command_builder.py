@@ -27,7 +27,7 @@ class KWSCommandBuilder:
         return command
 
     def score_hits_command(self) -> str:
-        command = f"{SCRIPTS_PATH}/score.sh {OUTPUT_PATH / self.output_filename} {SCORING_PATH}"
+        command = f"{SCRIPTS_PATH}/score.sh {OUTPUT_PATH / self.output_filename} {SCORING_PATH}"  # noqa
         return command
 
     def get_performance_command(self, iv_or_oov: str = "all") -> str:
