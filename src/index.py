@@ -63,7 +63,7 @@ class Index:
             if query_matched:
                 last_word_entry = current_word_entry
                 all_hits.append(
-                    SearchHit(
+                    Hit(
                         first_term_hit.kw_file,
                         first_term_hit.channel,
                         first_term_hit.start_time,
@@ -108,4 +108,4 @@ class WordEntry:
         self.next_word_entry = next_word_entry
 
 
-SearchHit = namedtuple("SearchHit", "kw_file,channel,start_time,duration,score")
+Hit = namedtuple("Hit", "kw_file,channel,start_time,duration,score")

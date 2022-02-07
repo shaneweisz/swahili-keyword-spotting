@@ -13,7 +13,7 @@ will also investigate score-normalisation and system combination.
 Create sym links to supplied base files:
 ```
 mkdir -p ~/MLMI14
-ln -s /usr/local/teach/MLSALT5/Practical/{lib,scoring,scripts} ~/MLMI14
+ln -s /usr/local/teach/MLSALT5/Practical/{lib,scripts} ~/MLMI14
 ```
 
 Create and activate python 3.9 virtual environment (3.9.7):
