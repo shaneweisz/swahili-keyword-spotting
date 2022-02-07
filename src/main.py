@@ -5,14 +5,6 @@ from set_of_hits import SetOfHits
 from queries_parser import parse_queries_file
 
 
-def main():
-    args = get_args()
-
-    ctm_file_path, queries_file_path, output_file_path = unpack_args(args)
-
-    run_kws(ctm_file_path, queries_file_path, output_file_path)
-
-
 def run_kws(ctm_file_path, queries_file_path, output_file_path):
     index = Index.from_ctm(ctm_file_path)
     queries = parse_queries_file(queries_file_path)
@@ -44,13 +36,11 @@ def get_args():
     return args
 
 
-def unpack_args(args):
+if __name__ == "__main__":
+    args = get_args()
+
     ctm_file_path = CTMS_PATH / args.ctm
     queries_file_path = QUERIES_PATH / args.queries
     output_file_path = OUTPUT_PATH / args.output
 
-    return ctm_file_path, queries_file_path, output_file_path
-
-
-if __name__ == "__main__":
-    main()
+    run_kws(ctm_file_path, queries_file_path, output_file_path)
