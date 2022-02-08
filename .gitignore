@@ -6,6 +6,7 @@ scoring/**/Ensemble*
 scoring/**/Readme.txt
 scoring/**/*.LOG
 scoring/**/*.kwslist.xml
+scoring/*
 
 *temp*
 *pycache*

@@ -9,7 +9,6 @@ def run_kws(ctm_file_path, queries_file_path, output_file_path):
     index = Index.from_ctm(ctm_file_path)
     queries = parse_queries_file(queries_file_path)
     set_of_hits = SetOfHits.from_search(queries, index)
-    set_of_hits.normalise_scores(gamma=1)
     set_of_hits.write_hits_to_file(output_file_path)
 
 

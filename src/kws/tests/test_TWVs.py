@@ -13,9 +13,9 @@ class TestTWVs(unittest.TestCase):
         expected_twv = 1
         self.assertEqual(expected_twv, received_twv)
 
-    def test_TWV_for_decode_ctm(self):
-        ctm_filename = "decode.ctm"
-        output_filename = "test-decode.xml"
+    def test_TWV_for_decode_word_ctm(self):
+        ctm_filename = "decode-word.ctm"
+        output_filename = "test-decode-word.xml"
         received_twv = get_TWV_for_ctm_file(ctm_filename, output_filename)
         expected_twv = 0.31894
         self.assertEqual(expected_twv, received_twv)

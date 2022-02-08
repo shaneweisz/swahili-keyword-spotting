@@ -29,7 +29,6 @@ class SetOfHits:
 
     @classmethod
     def from_XML(cls, xml_file_path: str):
-        """Takes in an `output/<name>.xml` file and builds a KWS_Hits object."""
         kwid_to_hits = dict()
 
         with open(xml_file_path) as xml_file:
