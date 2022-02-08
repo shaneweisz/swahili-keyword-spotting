@@ -1,13 +1,18 @@
 from typing import Dict
 from bs4 import BeautifulSoup
 from constants.paths import DCTS_PATH, QUERIES_PATH
+from util.file_writer import write_to_file
+
+queries_dct_file_path = DCTS_PATH / "morph.kwslist.dct"
+original_queries_file_path = QUERIES_PATH / "queries.xml"
+decomposed_queries_file_path = QUERIES_PATH / "queries-morph.xml"
 
 
-def main(queries_dct_file_path, queries_file_path):
+def main():
     word_to_morphs = build_word_to_morphs_dict(queries_dct_file_path)
-    xml_str = get_xml_str_from_queries_file(queries_file_path)
+    xml_str = get_xml_str_from_queries_file(original_queries_file_path)
     new_xml_str = replace_words_with_morphs(xml_str, word_to_morphs)
-    output_new_queries_file(new_xml_str)
+    write_to_file(new_xml_str, decomposed_queries_file_path)
 
 
 def build_word_to_morphs_dict(dct_file_path):
@@ -37,16 +42,9 @@ def replace_words_with_morphs(xml_str, word_to_morphs):
     return new_xml_str
 
 
-def output_new_queries_file(new_xml_str):
-    with open(QUERIES_PATH / "queries-morph.xml", "w") as decomposed_queries_file:
-        decomposed_queries_file.write(new_xml_str)
-
-
 def decompose_phrase_into_morphs(phrase, word_to_morphs: Dict[str, str]):
     return " ".join([word_to_morphs[word] for word in phrase.split()])
 
 
 if __name__ == "__main__":
-    queries_dct_file_path = DCTS_PATH / "morph.kwslist.dct"
-    queries_file_path = QUERIES_PATH / "queries.xml"
-    main(queries_dct_file_path, queries_file_path)
+    main()

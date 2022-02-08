@@ -53,9 +53,9 @@ class SetOfHits:
         set_of_hits = cls(kwid_to_hits)
         return set_of_hits
 
-    def write_hits_to_file(self, output_filename: str):
+    def write_hits_to_file(self, output_file_path: str):
         formatted_hits = self._format_for_output()
-        write_to_file(formatted_hits, output_filename)
+        write_to_file(formatted_hits, output_file_path)
 
     def combine_with(self, other_set_of_hits: SetOfHits):
         pass  # TODO: 3.3 in prac handout
