@@ -20,5 +20,11 @@ class HitList:
     def add_hit(self, hit: Hit):
         self.hit_list.append(hit)
 
+    def normalize_scores(self, gamma):
+        sum_of_scores = sum([hit.score**gamma for hit in self.hit_list])
+        for i, hit in enumerate(self.hit_list):
+            normalised_score = (hit.score**gamma) / sum_of_scores
+            self.hit_list[i].update_score(normalised_score)
+
     def __str__(self):
         return "".join([str(hit) for hit in self.hit_list])

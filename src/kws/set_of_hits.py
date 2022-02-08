@@ -38,16 +38,13 @@ class SetOfHits:
         pass  # TODO: 3.3 in prac handout
 
     def normalise_scores(self, gamma: int):
-        for kwid, hits in self.kwid_to_hits.items():
-            sum_of_scores = sum([hit.score**gamma for hit in hits])
-            for i, hit in enumerate(hits):
-                normalised_score = (hit.score**gamma) / sum_of_scores
-                self.kwid_to_hits[kwid][i].update_score(normalised_score)
+        for hit_list in self.kwid_to_hits.values():
+            hit_list.normalize_scores(gamma)
 
     def _format_for_output(self):
         output = HITS_FILE_HEADER
-        for kwid, hits in self.kwid_to_hits.items():
-            output += SetOfHits._output_for_kwid(kwid, hits)
+        for kwid, hit_list in self.kwid_to_hits.items():
+            output += SetOfHits._output_for_kwid(kwid, hit_list)
         output += HITS_FILE_FOOTER
         return output
 
