@@ -65,7 +65,7 @@ class Index:
                 last_word_entry = current_word_entry
                 hit_list.add_hit(
                     Hit(
-                        first_term_hit.kw_file,
+                        first_term_hit.file,
                         first_term_hit.channel,
                         first_term_hit.tbeg,
                         round(
@@ -93,8 +93,8 @@ class WordEntry:
     # The reason we use `class`` here rather than `namedtuple`
     # is because the value for the `next_word_entry` key
     # needs to be mutable in the indexing algorithm
-    def __init__(self, kw_file, channel, tbeg, dur, word, score, next_word_entry):
-        self.kw_file = kw_file
+    def __init__(self, file, channel, tbeg, dur, word, score, next_word_entry):
+        self.file = file
         self.channel = channel
         self.tbeg = float(tbeg)
         self.dur = float(dur)

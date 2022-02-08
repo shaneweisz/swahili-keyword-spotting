@@ -1,6 +1,6 @@
 class Hit:
-    def __init__(self, kw_file, channel, tbeg, dur, score):
-        self.kw_file = kw_file
+    def __init__(self, file, channel, tbeg, dur, score):
+        self.file = file
         self.channel = int(channel)
         self.tbeg = float(tbeg)
         self.dur = float(dur)
@@ -10,7 +10,7 @@ class Hit:
         self.score = new_score
 
     def __str__(self):
-        return f'<kw file="{self.kw_file}" channel="{self.channel}" tbeg="{self.tbeg}" dur="{self.dur}" score="{self.score}" decision="YES"/>\n'  # noqa
+        return f'<kw file="{self.file}" channel="{self.channel}" tbeg="{self.tbeg}" dur="{self.dur}" score="{self.score}" decision="YES"/>\n'  # noqa
 
 
 class HitList:

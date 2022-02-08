@@ -2,9 +2,11 @@
 # https://stackoverflow.com/questions/33533148/how-do-i-type-hint-a-method-with-the-type-of-the-enclosing-class
 from __future__ import annotations
 from typing import Dict
+
+from bs4 import BeautifulSoup
 from index import Index
 from util.file_writer import write_to_file
-from hits import HitList
+from hits import Hit, HitList
 
 
 HITS_FILE_HEADER = '<kwslist kwlist_filename="IARPA-babel202b-v1.0d_conv-dev.kwlist.xml" language="swahili" system_id="">\n'  # noqa
@@ -22,13 +24,34 @@ class SetOfHits:
         kwid_to_hits = dict()
         for kwid, kwtext in queries.items():
             kwid_to_hits[kwid] = index.search(kwtext)
-        hits = cls(kwid_to_hits)
-        return hits
+        set_of_hits = cls(kwid_to_hits)
+        return set_of_hits
 
     @classmethod
-    def from_XML(output_filename: str):
+    def from_XML(cls, xml_file_path: str):
         """Takes in an `output/<name>.xml` file and builds a KWS_Hits object."""
-        pass  # TODO: 3.3 in prac handout
+        kwid_to_hits = dict()
+
+        with open(xml_file_path) as xml_file:
+            xml_str = xml_file.read()
+            soup = BeautifulSoup(xml_str, features="xml")
+
+        kw_lists = soup.find_all("detected_kwlist")
+        for kw_list in kw_lists:
+            kwid = kw_list.get("kwid")
+            kwid_to_hits[kwid] = HitList()
+            for kw in kw_list.find_all("kw"):
+                hit = Hit(
+                    kw["file"],
+                    kw["channel"],
+                    tbeg=kw["tbeg"],
+                    dur=kw["dur"],
+                    score=kw["score"],
+                )
+                kwid_to_hits[kwid].add_hit(hit)
+
+        set_of_hits = cls(kwid_to_hits)
+        return set_of_hits
 
     def write_hits_to_file(self, output_filename: str):
         formatted_hits = self._format_for_output()
