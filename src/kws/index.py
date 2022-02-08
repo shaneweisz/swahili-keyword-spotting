@@ -1,5 +1,5 @@
 from collections import defaultdict
-from hit import Hit
+from hits import Hit, HitList
 
 
 class Index:
@@ -33,11 +33,11 @@ class Index:
     def _add_word_entry_to_index(self, word_entry):
         self.index[word_entry.word].append(word_entry)
 
-    def search(self, query):
+    def search(self, query: str) -> HitList:
         terms = query.split()
         first_term = terms[0]
         first_term_hits = self._get_word_entries_for_word(first_term)
-        all_hits = []
+        hit_list = HitList()
         for first_term_hit in first_term_hits:
             query_matched = True
             query_score = first_term_hit.score
@@ -49,9 +49,9 @@ class Index:
                 next_word_matches = term == next_word_entry.word
 
                 words_close_enough = self._words_close_enough(
-                    current_word_entry.start_time,
-                    current_word_entry.duration,
-                    next_word_entry.start_time,
+                    current_word_entry.tbeg,
+                    current_word_entry.dur,
+                    next_word_entry.tbeg,
                 )
 
                 if next_word_matches and words_close_enough:
@@ -63,33 +63,29 @@ class Index:
                     break
             if query_matched:
                 last_word_entry = current_word_entry
-                all_hits.append(
+                hit_list.add_hit(
                     Hit(
                         first_term_hit.kw_file,
                         first_term_hit.channel,
-                        first_term_hit.start_time,
+                        first_term_hit.tbeg,
                         round(
-                            last_word_entry.start_time
-                            + last_word_entry.duration
-                            - first_term_hit.start_time,
+                            last_word_entry.tbeg
+                            + last_word_entry.dur
+                            - first_term_hit.tbeg,
                             2,
                         ),
                         query_score,
                     )
                 )
-        return all_hits
+        return hit_list
 
     def _get_word_entries_for_word(self, word):
         return self.index[word]
 
-    def _words_close_enough(
-        self, current_word_start_time, current_word_duration, next_word_start_time
-    ):
+    def _words_close_enough(self, current_word_tbeg, current_word_dur, next_word_tbeg):
         return (
-            next_word_start_time
-            <= current_word_start_time
-            + current_word_duration
-            + self.TIME_BETWEEN_WORDS_IN_PHRASES
+            next_word_tbeg
+            <= current_word_tbeg + current_word_dur + self.TIME_BETWEEN_WORDS_IN_PHRASES
         )
 
 
@@ -97,13 +93,11 @@ class WordEntry:
     # The reason we use `class`` here rather than `namedtuple`
     # is because the value for the `next_word_entry` key
     # needs to be mutable in the indexing algorithm
-    def __init__(
-        self, kw_file, channel, start_time, duration, word, score, next_word_entry
-    ):
+    def __init__(self, kw_file, channel, tbeg, dur, word, score, next_word_entry):
         self.kw_file = kw_file
         self.channel = channel
-        self.start_time = float(start_time)
-        self.duration = float(duration)
+        self.tbeg = float(tbeg)
+        self.dur = float(dur)
         self.word = word.lower()
         self.score = float(score)
         self.next_word_entry = next_word_entry

@@ -1,10 +1,10 @@
 # The `from __future__ import annotations` allows `combine_hits` to take in a typed `KWS_Hits` object. See: # noqa
 # https://stackoverflow.com/questions/33533148/how-do-i-type-hint-a-method-with-the-type-of-the-enclosing-class
 from __future__ import annotations
-from typing import Dict, List
+from typing import Dict
 from index import Index
 from util.file_writer import write_to_file
-from hit import Hit
+from hits import HitList
 
 
 HITS_FILE_HEADER = '<kwslist kwlist_filename="IARPA-babel202b-v1.0d_conv-dev.kwlist.xml" language="swahili" system_id="">\n'  # noqa
@@ -14,11 +14,11 @@ HIT_FOOTER = "</detected_kwlist>\n"
 
 
 class SetOfHits:
-    def __init__(self, kwid_to_hits: Dict[str, Hit]):
+    def __init__(self, kwid_to_hits: Dict[str, HitList]):
         self.kwid_to_hits = kwid_to_hits
 
     @classmethod
-    def search(cls, queries: Dict[str, str], index: Index):
+    def from_search(cls, queries: Dict[str, str], index: Index):
         kwid_to_hits = dict()
         for kwid, kwtext in queries.items():
             kwid_to_hits[kwid] = index.search(kwtext)
@@ -39,7 +39,7 @@ class SetOfHits:
 
     def normalise_scores(self, gamma: int):
         for kwid, hits in self.kwid_to_hits.items():
-            sum_of_scores = sum([hit.score for hit in hits])
+            sum_of_scores = sum([hit.score**gamma for hit in hits])
             for i, hit in enumerate(hits):
                 normalised_score = (hit.score**gamma) / sum_of_scores
                 self.kwid_to_hits[kwid][i].update_score(normalised_score)
@@ -47,19 +47,13 @@ class SetOfHits:
     def _format_for_output(self):
         output = HITS_FILE_HEADER
         for kwid, hits in self.kwid_to_hits.items():
-            output += SetOfHits._output_for_hit(kwid, hits)
+            output += SetOfHits._output_for_kwid(kwid, hits)
         output += HITS_FILE_FOOTER
         return output
 
     @staticmethod
-    def _output_for_hit(kwid: str, hits: List[Hit]):
+    def _output_for_kwid(kwid: str, hit_list: HitList):
         output = HIT_HEADER.format(kwid=kwid)
-        for hit in hits:
-            output += f'<kw file="{hit.kw_file}" '
-            output += f'channel="{hit.channel}" '
-            output += f'tbeg="{hit.start_time}" '
-            output += f'dur="{hit.duration}" '
-            output += f'score="{hit.score}" '
-            output += 'decision="YES"/>\n'
+        output += str(hit_list)
         output += HIT_FOOTER
         return output

@@ -17,8 +17,8 @@ class TestIndexer(unittest.TestCase):
     index = Index.from_ctm(test_ctm_file_path)
     first_habari_entry = index.index["habari"][0]
 
-    def test_duration_stored(self):
-        self.assertEqual(self.first_habari_entry.duration, 0.37)
+    def test_dur_stored(self):
+        self.assertEqual(self.first_habari_entry.dur, 0.37)
 
     def test_next_word(self):
         next_word_entry = self.first_habari_entry.next_word_entry

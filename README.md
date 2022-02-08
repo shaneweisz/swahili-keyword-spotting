@@ -27,7 +27,7 @@ source ~/MLMI14/.venv/bin/activate
 **NB**: The below must be run to allow relative imports within the packages
 
 ```
-source set_pythonpath.sh
+source set-pythonpath.sh
 ```
 
 ### Running KWS on a CTM file
