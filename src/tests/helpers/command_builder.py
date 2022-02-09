@@ -12,7 +12,7 @@ class KWSCommandBuilder:
         self,
         ctm_filename: str,
         output_filename: str,
-        queries_filename: str = "queries.xml",
+        queries_filename: str = "queries-word.xml",
     ):
         self.ctm_filename = ctm_filename
         self.output_filename = output_filename

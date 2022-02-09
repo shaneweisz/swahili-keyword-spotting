@@ -5,7 +5,7 @@ from util.file_writer import write_to_file
 from map_words_to_morphs import build_word_to_morphs_dict
 
 conversion_dct_file_path = DCTS_PATH / "morph.kwslist.dct"
-original_queries_file_path = QUERIES_PATH / "queries.xml"
+original_queries_file_path = QUERIES_PATH / "queries-word.xml"
 new_queries_file_path = QUERIES_PATH / "queries-morph.xml"
 
 
