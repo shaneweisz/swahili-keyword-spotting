@@ -9,5 +9,4 @@ scoring/*
 *pycache*
 
 .venv
-.vscode
-.flake8
+.vscode/launch.json
