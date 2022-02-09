@@ -1,3 +1,4 @@
+import re
 import subprocess
 from tests.helpers.command_builder import KWSCommandBuilder
 
@@ -19,11 +20,12 @@ def get_TWV_for_ctm_file(ctm_filename: str, output_filename: str) -> float:
     return twv
 
 
-def extract_TWV(scoring_output: str) -> float:
-    """An example of `scoring_output` is
-    "all TWV=0.318940153583907 theshold=0.043 number=488\n"
+def extract_TWV(scoring_output: str, ndigits: int = 5) -> float:
     """
-    index_of_twv = scoring_output.find("TWV=") + len("TWV=")
-    twv = scoring_output[index_of_twv : scoring_output.find(" ", index_of_twv)]
-    twv = round(float(twv), 5)
+    scoring_output : str
+        Example: "all TWV=0.318940153583907 theshold=0.043 number=488\n"
+    """
+    number_regex = r"\d*\.\d+|\d+"
+    twv, _, _ = re.findall(number_regex, scoring_output)
+    twv = round(float(twv), ndigits)
     return twv
