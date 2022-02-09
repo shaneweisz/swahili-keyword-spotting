@@ -7,6 +7,7 @@ OUTPUT_PATH = BASE_PATH / "output"
 SRC_PATH = BASE_PATH / "src"
 SCRIPTS_PATH = BASE_PATH / "scripts"
 SCORING_PATH = BASE_PATH / "scoring"
+RESULTS_PATH = BASE_PATH / "results"
 
 CTMS_PATH = LIB_PATH / "ctms"
 QUERIES_PATH = LIB_PATH / "queries"
