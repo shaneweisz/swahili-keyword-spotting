@@ -1,6 +1,3 @@
-lib
-scripts
-
 scoring/**/Full-Occur*
 scoring/**/Ensemble*
 scoring/**/Readme.txt

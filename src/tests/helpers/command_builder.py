@@ -33,7 +33,7 @@ class KWSCommandBuilder:
     def get_performance_command(self, iv_or_oov: str = "all") -> str:
         """`iv_or_oov` is either "all", "iv" or "oov"."""
         command = f"{SCRIPTS_PATH}/termselect.sh "
-        command += f"{LIB_PATH}/terms/ivoov.map "
+        command += f"{LIB_PATH}/queries/ivoov.map "
         command += f"{OUTPUT_PATH / self.output_filename} "
         command += f"{SCORING_PATH} "
         command += f"{iv_or_oov}"
