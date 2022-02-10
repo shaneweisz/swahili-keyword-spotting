@@ -1,12 +1,20 @@
+from collections import namedtuple
 import re
 import subprocess
 from constants.paths import SCRIPTS_PATH, SCORING_PATH, QUERIES_PATH
 
 
-def get_MTWV_for_output_file(output_file_path: str) -> float:
+MTWVs = namedtuple("MTWVs", "all iv oov")
+
+
+def get_MTWVs_for_output_file(output_file_path: str) -> MTWVs:
     run_score_command(output_file_path)
-    mtwv = run_termselect_command(output_file_path)
-    return mtwv
+
+    all_mtwv = run_termselect_command(output_file_path, "all")
+    iv_mtwv = run_termselect_command(output_file_path, "iv")
+    oov_mtwv = run_termselect_command(output_file_path, "oov")
+
+    return MTWVs(all=all_mtwv, iv=iv_mtwv, oov=oov_mtwv)
 
 
 def run_score_command(output_file_path: str):
@@ -24,12 +32,11 @@ def run_termselect_command(output_file_path: str, iv_oov_tag: str = "all"):
     return mtwv
 
 
-def extract_MTWV_from_output(scoring_output: str, ndigits: int = 5) -> float:
+def extract_MTWV_from_output(scoring_output: str) -> float:
     """
     scoring_output : str
         Example: "all TWV=0.318940153583907 theshold=0.043 number=488\n"
     """
     number_regex = r"\d*\.\d+|\d+"
     mtwv, _, _ = re.findall(number_regex, scoring_output)
-    mtwv = round(float(mtwv), ndigits)
-    return mtwv
+    return float(mtwv)
