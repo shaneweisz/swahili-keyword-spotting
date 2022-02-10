@@ -5,6 +5,9 @@ scoring/**/*.LOG
 scoring/**/*.kwslist.xml
 scoring/*
 
+output/score-normalisation
+output/system-combination
+
 *temp*
 *pycache*
 
