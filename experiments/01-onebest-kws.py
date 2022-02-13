@@ -10,7 +10,7 @@ output_file_names_to_score = [
     "onebest-word-to-morph.xml",
 ]
 
-RESULTS_HEADER = "file,iv,oov,all"
+RESULTS_HEADER = "file,all,iv,oov"
 
 
 def main():

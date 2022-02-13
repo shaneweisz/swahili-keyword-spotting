@@ -1,4 +1,4 @@
-file,iv,oov,all
+file,all,iv,oov
 reference.xml,1.000,1.000,1.000
 onebest-word.xml,0.319,0.401,0.000
 onebest-morph.xml,0.318,0.383,0.068
