@@ -56,8 +56,13 @@ class SetOfHits:
         formatted_hits = self._format_for_output()
         write_to_file(formatted_hits, output_file_path)
 
-    def combine_with(self, other_set_of_hits: SetOfHits):
-        pass  # TODO: 3.3 in prac handout
+    def combine_with(self, other_set_of_hits: SetOfHits) -> SetOfHits:
+        new_kwid_to_hits = dict()
+        for kwid, hit_list in self.kwid_to_hits.items():
+            other_hit_list = other_set_of_hits.kwid_to_hits[kwid]
+            combined_hit_list = hit_list.combine_with(other_hit_list)
+            new_kwid_to_hits[kwid] = combined_hit_list
+        return SetOfHits(new_kwid_to_hits)
 
     def normalise_scores(self, gamma: int):
         for hit_list in self.kwid_to_hits.values():
