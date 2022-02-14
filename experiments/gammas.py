@@ -2,7 +2,7 @@ from constants.paths import OUTPUT_PATH, RESULTS_PATH
 from helpers.score_system import MTWVs, get_MTWVs_for_output_file
 from kws.set_of_hits import SetOfHits
 
-experiment_name = "02-score_normalisation"
+experiment_name = "gammas"
 
 output_file_names_to_score = [
     "reference.xml",

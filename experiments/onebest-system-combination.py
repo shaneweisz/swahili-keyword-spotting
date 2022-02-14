@@ -6,7 +6,12 @@ from set_of_hits import SetOfHits
 experiment_name = "onebest-system-combination"
 
 systems_sets = [
+    ["onebest-word"],
+    ["onebest-morph"],
+    ["onebest-word-to-morph"],
     ["onebest-word", "onebest-morph"],
+    ["onebest-word", "onebest-word-to-morph"],
+    ["onebest-morph", "onebest-word-to-morph"],
     ["onebest-word", "onebest-morph", "onebest-word-to-morph"],
 ]
 
@@ -24,7 +29,7 @@ def main():
 
         output_file_name = "_+_".join(systems)
         output_file_path = (
-            OUTPUT_PATH / "system-combination" / f"{output_file_name}.xml"
+            OUTPUT_PATH / "system-combination" / "onebest" / f"{output_file_name}.xml"
         )
         combined_set_of_hits.write_hits_to_file(output_file_path)
 

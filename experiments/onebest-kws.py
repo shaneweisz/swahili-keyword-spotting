@@ -1,7 +1,7 @@
 from constants.paths import OUTPUT_PATH, RESULTS_PATH
 from helpers.score_system import MTWVs, get_MTWVs_for_output_file
 
-experiment_name = "01-onebest_kws"
+experiment_name = "onebest-kws"
 
 output_file_names_to_score = [
     "reference.xml",
