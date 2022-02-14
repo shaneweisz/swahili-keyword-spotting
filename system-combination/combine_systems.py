@@ -4,17 +4,23 @@ from set_of_hits import SetOfHits
 
 
 def combine_sets_of_hits(
-    sets_of_hits: List[SetOfHits], weights: List[float] = None
+    sets_of_hits: List[SetOfHits],
+    method="CombSum",
+    weights: List[float] = None,
 ) -> SetOfHits:
     new_kwid_to_hits = dict()
     for kwid in sets_of_hits[0].kwid_to_hits.keys():
         hit_lists = [set_of_hits.kwid_to_hits[kwid] for set_of_hits in sets_of_hits]
-        combined_hit_list = combine_hit_lists(hit_lists)
+        combined_hit_list = combine_hit_lists(hit_lists, method=method)
         new_kwid_to_hits[kwid] = combined_hit_list
     return SetOfHits(new_kwid_to_hits)
 
 
-def combine_hit_lists(hit_lists: HitList, weights: List[float] = None) -> HitList:
+def combine_hit_lists(
+    hit_lists: HitList,
+    method,
+    weights: List[float] = None,
+) -> HitList:
     combined_hit_list = []
     for i, hit_list in enumerate(hit_lists, start=1):
         combined_hit_list += [SystemHit(i, hit) for hit in hit_list.hit_list]
@@ -51,7 +57,12 @@ def combine_hit_lists(hit_lists: HitList, weights: List[float] = None) -> HitLis
                     max_score_index = index
             tbeg = hits_to_merge[max_score_index].tbeg
             dur = hits_to_merge[max_score_index].dur
-            score = sum([hit.score for hit in hits_to_merge])
+            if method == "CombSUM":
+                score = sum([hit.score for hit in hits_to_merge])
+            elif method == "CombMNZ":
+                score = len(hits_to_merge) * sum([hit.score for hit in hits_to_merge])
+            else:
+                raise Exception("Invalid Score Merging Method")
             new_hit = Hit(file, channel, tbeg, dur, score)
             new_hit_list.append(new_hit)
         i += len(hits_to_merge)

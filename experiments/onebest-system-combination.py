@@ -6,16 +6,13 @@ from set_of_hits import SetOfHits
 experiment_name = "onebest-system-combination"
 
 systems_sets = [
-    ["onebest-word"],
-    ["onebest-morph"],
-    ["onebest-word-to-morph"],
     ["onebest-word", "onebest-morph"],
-    ["onebest-word", "onebest-word-to-morph"],
-    ["onebest-morph", "onebest-word-to-morph"],
-    ["onebest-word", "onebest-morph", "onebest-word-to-morph"],
+    ["STO-onebest-word", "STO-onebest-morph"],
 ]
 
-RESULTS_HEADER = "file,all,iv,oov"
+methods = ["CombSUM", "CombMNZ"]
+
+RESULTS_HEADER = "file,method,all,iv,oov"
 
 
 def main():
@@ -25,17 +22,23 @@ def main():
         sets_of_hits = [
             SetOfHits.from_XML(get_output_path(system)) for system in systems
         ]
-        combined_set_of_hits = combine_sets_of_hits(sets_of_hits)
 
-        output_file_name = "_+_".join(systems)
-        output_file_path = (
-            OUTPUT_PATH / "system-combination" / "onebest" / f"{output_file_name}.xml"
-        )
-        combined_set_of_hits.write_hits_to_file(output_file_path)
+        for method in methods:
+            combined_set_of_hits = combine_sets_of_hits(sets_of_hits, method=method)
 
-        mtwvs = get_MTWVs_for_output_file(output_file_path)
-        line = get_results_line(mtwvs, output_file_name)
-        write_line_to_file(results_file, line)
+            output_file_name = "_+_".join(systems) + "_" + method
+            output_file_path = (
+                OUTPUT_PATH
+                / "system-combination"
+                / "onebest"
+                / method
+                / f"{output_file_name}.xml"
+            )
+            combined_set_of_hits.write_hits_to_file(output_file_path)
+
+            mtwvs = get_MTWVs_for_output_file(output_file_path)
+            line = get_results_line(mtwvs, output_file_name, method)
+            write_line_to_file(results_file, line)
 
     cleanup_results_file(results_file)
 
@@ -47,8 +50,8 @@ def setup_results_file(experiment_name: str):
     return results_file
 
 
-def get_results_line(mtwvs: MTWVs, output_file_name: str):
-    line = f"{output_file_name},{mtwvs.all:.3f},{mtwvs.iv:.3f},{mtwvs.oov:.3f}"
+def get_results_line(mtwvs: MTWVs, output_file_name: str, method):
+    line = f"{output_file_name},{method},{mtwvs.all:.3f},{mtwvs.iv:.3f},{mtwvs.oov:.3f}"
     return line
 
 

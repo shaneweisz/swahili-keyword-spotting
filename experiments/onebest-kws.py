@@ -42,7 +42,7 @@ def normalise(output_file_name, gamma):
 
 
 def get_normalised_file_name(output_file_name, gamma):
-    return output_file_name.strip(".xml") + "-STO.xml"
+    return "STO-" + output_file_name.strip(".xml") + ".xml"
 
 
 def setup_results_file(experiment_name: str):
