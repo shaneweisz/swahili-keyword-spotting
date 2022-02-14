@@ -17,10 +17,11 @@ def main():
 
     for system_pair in systems_pairs:
         set_of_hits1 = SetOfHits.from_XML(OUTPUT_PATH / system_pair[0])
-        set_of_hits1.normalise_scores(gamma=1)
+        # set_of_hits1.normalise_scores(gamma=1)
         set_of_hits2 = SetOfHits.from_XML(OUTPUT_PATH / system_pair[1])
-        set_of_hits2.normalise_scores(gamma=1)
+        # set_of_hits2.normalise_scores(gamma=1)
         combined_set_of_hits = set_of_hits1.combine_with(set_of_hits2)
+        # combined_set_of_hits.normalise_scores(gamma=1)
 
         output_file_name = "+".join(system_pair)
         output_file_path = OUTPUT_PATH / "system-combination" / output_file_name

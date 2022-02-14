@@ -17,7 +17,7 @@ HIT_FOOTER = "</detected_kwlist>\n"
 
 class SetOfHits:
     def __init__(self, kwid_to_hits: Dict[str, HitList]):
-        self.kwid_to_hits = kwid_to_hits
+        self.kwid_to_hits: Dict[str, HitList] = kwid_to_hits
 
     @classmethod
     def from_search(cls, queries: Dict[str, str], index: Index):
@@ -56,11 +56,14 @@ class SetOfHits:
         formatted_hits = self._format_for_output()
         write_to_file(formatted_hits, output_file_path)
 
-    def combine_with(self, other_set_of_hits: SetOfHits) -> SetOfHits:
+    def combine_with(self, *other_sets_of_hits: SetOfHits) -> SetOfHits:
         new_kwid_to_hits = dict()
         for kwid, hit_list in self.kwid_to_hits.items():
-            other_hit_list = other_set_of_hits.kwid_to_hits[kwid]
-            combined_hit_list = hit_list.combine_with(other_hit_list)
+            other_hit_lists = []
+            for other_set_of_hits in other_sets_of_hits:
+                other_hit_list = other_set_of_hits.kwid_to_hits[kwid]
+                other_hit_lists.append(other_hit_list)
+            combined_hit_list = hit_list.combine_with(other_hit_lists)
             new_kwid_to_hits[kwid] = combined_hit_list
         return SetOfHits(new_kwid_to_hits)
 
