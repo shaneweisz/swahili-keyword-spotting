@@ -1,12 +1,13 @@
 from constants.paths import OUTPUT_PATH, RESULTS_PATH
 from helpers.score_system import MTWVs, get_MTWVs_for_output_file
+from combine_systems import combine_sets_of_hits
 from set_of_hits import SetOfHits
 
-experiment_name = "03-combine-onebest"
+experiment_name = "onebest-system-combination"
 
-systems_pairs = [
-    ["onebest-word.xml", "onebest-morph.xml"]
-    # "onebest-word-to-morph.xml",
+systems_sets = [
+    ["onebest-word", "onebest-morph"],
+    ["onebest-word", "onebest-morph", "onebest-word-to-morph"],
 ]
 
 RESULTS_HEADER = "file,all,iv,oov"
@@ -15,16 +16,16 @@ RESULTS_HEADER = "file,all,iv,oov"
 def main():
     results_file = setup_results_file(experiment_name)
 
-    for system_pair in systems_pairs:
-        set_of_hits1 = SetOfHits.from_XML(OUTPUT_PATH / system_pair[0])
-        # set_of_hits1.normalise_scores(gamma=1)
-        set_of_hits2 = SetOfHits.from_XML(OUTPUT_PATH / system_pair[1])
-        # set_of_hits2.normalise_scores(gamma=1)
-        combined_set_of_hits = set_of_hits1.combine_with(set_of_hits2)
-        # combined_set_of_hits.normalise_scores(gamma=1)
+    for systems in systems_sets:
+        sets_of_hits = [
+            SetOfHits.from_XML(get_output_path(system)) for system in systems
+        ]
+        combined_set_of_hits = combine_sets_of_hits(sets_of_hits)
 
-        output_file_name = "+".join(system_pair)
-        output_file_path = OUTPUT_PATH / "system-combination" / output_file_name
+        output_file_name = "_+_".join(systems)
+        output_file_path = (
+            OUTPUT_PATH / "system-combination" / f"{output_file_name}.xml"
+        )
         combined_set_of_hits.write_hits_to_file(output_file_path)
 
         mtwvs = get_MTWVs_for_output_file(output_file_path)
@@ -53,6 +54,10 @@ def write_line_to_file(file, line):
 
 def cleanup_results_file(file):
     file.close()
+
+
+def get_output_path(file_name):
+    return OUTPUT_PATH / f"{file_name}.xml"
 
 
 if __name__ == "__main__":
