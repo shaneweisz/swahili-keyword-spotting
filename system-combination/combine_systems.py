@@ -9,7 +9,8 @@ def combine_sets_of_hits(
     weights: List[float] = None,
 ) -> SetOfHits:
     new_kwid_to_hits = dict()
-    for kwid in sets_of_hits[0].kwid_to_hits.keys():
+    kwids = [f"KW202-00{i:03}" for i in range(1, 501)]
+    for kwid in kwids:
         hit_lists = [set_of_hits.kwid_to_hits[kwid] for set_of_hits in sets_of_hits]
         combined_hit_list = combine_hit_lists(hit_lists, method=method)
         new_kwid_to_hits[kwid] = combined_hit_list

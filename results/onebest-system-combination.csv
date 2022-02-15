@@ -1,5 +1,0 @@
-file,method,all,iv,oov
-onebest-word_+_onebest-morph_CombSUM,CombSUM,0.348,0.420,0.068
-onebest-word_+_onebest-morph_CombMNZ,CombMNZ,0.348,0.420,0.068
-STO-onebest-word_+_STO-onebest-morph_CombSUM,CombSUM,0.361,0.437,0.068
-STO-onebest-word_+_STO-onebest-morph_CombMNZ,CombMNZ,0.361,0.437,0.068

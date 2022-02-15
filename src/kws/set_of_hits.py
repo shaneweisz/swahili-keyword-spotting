@@ -1,6 +1,7 @@
 # The `from __future__ import annotations` allows `combine_hits` to take in a typed `KWS_Hits` object. See: # noqa
 # https://stackoverflow.com/questions/33533148/how-do-i-type-hint-a-method-with-the-type-of-the-enclosing-class
 from __future__ import annotations
+from collections import defaultdict
 from typing import Dict
 
 from bs4 import BeautifulSoup
@@ -29,7 +30,7 @@ class SetOfHits:
 
     @classmethod
     def from_XML(cls, xml_file_path: str):
-        kwid_to_hits = dict()
+        kwid_to_hits = defaultdict(HitList)
 
         with open(xml_file_path) as xml_file:
             xml_str = xml_file.read()
@@ -38,7 +39,6 @@ class SetOfHits:
         kw_lists = soup.find_all("detected_kwlist")
         for kw_list in kw_lists:
             kwid = kw_list.get("kwid")
-            kwid_to_hits[kwid] = HitList()
             for kw in kw_list.find_all("kw"):
                 hit = Hit(
                     kw["file"],
