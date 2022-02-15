@@ -2,13 +2,20 @@ from constants.paths import OUTPUT_PATH, RESULTS_PATH
 from helpers.score_system import MTWVs, get_MTWVs_for_output_file
 from set_of_hits import SetOfHits
 
-experiment_name = "onebest-kws"
 
+# experiment_name = "onebest-kws"
+# output_file_names_to_score = [
+#     "reference.xml",
+#     "onebest-word.xml",
+#     "onebest-morph.xml",
+#     "onebest-word-to-morph.xml",
+# ]
+
+experiment_name = "lattice-kws"
 output_file_names_to_score = [
-    "reference.xml",
-    "onebest-word.xml",
-    "onebest-morph.xml",
-    "onebest-word-to-morph.xml",
+    "lattice-word.xml",
+    "lattice-morph.xml",
+    "lattice-word-sys2.xml",
 ]
 
 RESULTS_HEADER = "file,all,iv,oov"
@@ -34,15 +41,15 @@ def normalise(output_file_name, gamma):
     set_of_hits = SetOfHits.from_XML(OUTPUT_PATH / output_file_name)
     set_of_hits.normalise_scores(gamma)
 
-    normalised_output_file_name = get_normalised_file_name(output_file_name, gamma)
+    normalised_output_file_name = "STO-" + output_file_name
     normalised_output_file_path = OUTPUT_PATH / normalised_output_file_name
     set_of_hits.write_hits_to_file(normalised_output_file_path)
 
     return normalised_output_file_name
 
 
-def get_normalised_file_name(output_file_name, gamma):
-    return "STO-" + output_file_name.strip(".xml") + ".xml"
+def get_normalised_file_name(output_file_name):
+    return "STO-" + output_file_name + ".xml"
 
 
 def setup_results_file(experiment_name: str):
