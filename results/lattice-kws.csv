@@ -1,7 +1,7 @@
-file,all,iv,oov
+File,All,IV,OOV
 lattice-word.xml,0.399,0.501,0.000
-STO-lattice-word.xml,0.460,0.579,0.000
 lattice-morph.xml,0.360,0.430,0.089
-STO-lattice-morph.xml,0.520,0.559,0.367
 lattice-word-sys2.xml,0.403,0.507,0.000
+STO-lattice-word.xml,0.460,0.579,0.000
+STO-lattice-morph.xml,0.520,0.559,0.367
 STO-lattice-word-sys2.xml,0.465,0.585,0.000
