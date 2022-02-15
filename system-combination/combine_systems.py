@@ -12,7 +12,7 @@ def combine_sets_of_hits(
     kwids = [f"KW202-00{i:03}" for i in range(1, 501)]
     for kwid in kwids:
         hit_lists = [set_of_hits.kwid_to_hits[kwid] for set_of_hits in sets_of_hits]
-        combined_hit_list = combine_hit_lists(hit_lists, method=method)
+        combined_hit_list = combine_hit_lists(hit_lists, method, weights)
         new_kwid_to_hits[kwid] = combined_hit_list
     return SetOfHits(new_kwid_to_hits)
 
@@ -20,10 +20,10 @@ def combine_sets_of_hits(
 def combine_hit_lists(
     hit_lists: HitList,
     method,
-    weights: List[float] = None,
+    weights: List[float],
 ) -> HitList:
     combined_hit_list = []
-    for i, hit_list in enumerate(hit_lists, start=1):
+    for i, hit_list in enumerate(hit_lists):
         combined_hit_list += [SystemHit(i, hit) for hit in hit_list.hit_list]
 
     combined_hit_list = sorted(combined_hit_list, key=lambda hit: (hit.file, hit.tbeg))
@@ -62,6 +62,14 @@ def combine_hit_lists(
                 score = sum([hit.score for hit in hits_to_merge])
             elif method == "CombMNZ":
                 score = len(hits_to_merge) * sum([hit.score for hit in hits_to_merge])
+            elif method == "WCombMNZ":
+                weights_total = sum(weights)
+                score = len(hits_to_merge) * sum(
+                    [
+                        hit.score * (weights[hit.system_index] / weights_total)
+                        for hit in hits_to_merge
+                    ]
+                )
             else:
                 raise Exception("Invalid Score Merging Method")
             new_hit = Hit(file, channel, tbeg, dur, score)
