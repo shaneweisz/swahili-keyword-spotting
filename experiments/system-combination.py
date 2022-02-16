@@ -5,9 +5,9 @@ from combine_systems import combine_sets_of_hits
 from set_of_hits import SetOfHits
 
 
-methods = ["CombSUM", "CombMNZ", "WCombMNZ"]
+methods = ["WCombMNZ"]
 
-RESULTS_HEADER = "System,All,IV,OOV"
+RESULTS_HEADER = "System,All,IV,OOV,Threshold"
 
 
 def main(experiment_name, systems_sets):
@@ -64,7 +64,9 @@ def cleanup_results_file(file):
 
 
 def get_results_line(mtwvs: MTWVs, system: str):
-    line = f"{system},{mtwvs.all:.3f},{mtwvs.iv:.3f},{mtwvs.oov:.3f}"
+    line = (
+        f"{system},{mtwvs.all:.3f},{mtwvs.iv:.3f},{mtwvs.oov:.3f},{mtwvs.threshold:.3f}"
+    )
     return line
 
 
@@ -83,10 +85,10 @@ if __name__ == "__main__":
     if args.asr_type == "lattice":
         experiment_name = "system-combination-lattice"
         systems_sets = [
-            (["lattice-morph", "lattice-word"], [0.36, 0.399]),
-            (["STO-lattice-morph", "STO-lattice-word"], [0.52, 0.46]),
-            (["lattice-morph", "lattice-word-sys2"], [0.36, 0.403]),
-            (["STO-lattice-morph", "STO-lattice-word-sys2"], [0.52, 0.465]),
+            # (["lattice-morph", "lattice-word"], [0.36, 0.399]),
+            # (["STO-lattice-morph", "STO-lattice-word"], [0.52, 0.46]),
+            # (["lattice-morph", "lattice-word-sys2"], [0.36, 0.403]),
+            # (["STO-lattice-morph", "STO-lattice-word-sys2"], [0.52, 0.465]),
             (
                 ["lattice-word", "lattice-morph", "lattice-word-sys2"],
                 [0.399, 0.36, 0.403],

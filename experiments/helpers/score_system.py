@@ -1,20 +1,21 @@
 from collections import namedtuple
 import re
 import subprocess
+from typing import Tuple
 from constants.paths import SCRIPTS_PATH, SCORING_PATH, QUERIES_PATH
 
 
-MTWVs = namedtuple("MTWVs", "all iv oov")
+MTWVs = namedtuple("MTWVs", "all iv oov threshold")
 
 
 def get_MTWVs_for_output_file(output_file_path: str) -> MTWVs:
     run_score_command(output_file_path)
 
-    all_mtwv = run_termselect_command(output_file_path, "all")
-    iv_mtwv = run_termselect_command(output_file_path, "iv")
-    oov_mtwv = run_termselect_command(output_file_path, "oov")
+    all_mtwv, threshold = run_termselect_command(output_file_path, "all")
+    iv_mtwv, _ = run_termselect_command(output_file_path, "iv")
+    oov_mtwv, _ = run_termselect_command(output_file_path, "oov")
 
-    return MTWVs(all=all_mtwv, iv=iv_mtwv, oov=oov_mtwv)
+    return MTWVs(all=all_mtwv, iv=iv_mtwv, oov=oov_mtwv, threshold=threshold)
 
 
 def run_score_command(output_file_path: str):
@@ -28,15 +29,15 @@ def run_termselect_command(output_file_path: str, iv_oov_tag: str = "all"):
         TERMSELECT_COMMAND, shell=True, capture_output=True
     )
     scoring_output = termselect_process.stdout.decode("utf-8")
-    mtwv = extract_MTWV_from_output(scoring_output)
-    return mtwv
+    mtwv, threshold = extract_MTWV_from_output(scoring_output)
+    return mtwv, threshold
 
 
-def extract_MTWV_from_output(scoring_output: str) -> float:
+def extract_MTWV_from_output(scoring_output: str) -> Tuple[float, float]:
     """
     scoring_output : str
         Example: "all TWV=0.318940153583907 theshold=0.043 number=488\n"
     """
     number_regex = r"\d*\.\d+|\d+"
-    mtwv, _, _ = re.findall(number_regex, scoring_output)
-    return float(mtwv)
+    mtwv, threshold, _ = re.findall(number_regex, scoring_output)
+    return float(mtwv), float(threshold)
