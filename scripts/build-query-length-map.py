@@ -1,10 +1,10 @@
 from collections import defaultdict
-from queries_parser import parse_queries_file
+from queries import Queries
 from constants.paths import QUERIES_PATH
 from util.file_writer import write_to_file
 
 queries_file_name = "queries-word.xml"
-queries = parse_queries_file(QUERIES_PATH / queries_file_name)
+queries = Queries.from_queries_file(QUERIES_PATH / queries_file_name).queries_dict
 
 query_length_map = {kwid: len(kwtext.split()) for kwid, kwtext in queries.items()}
 

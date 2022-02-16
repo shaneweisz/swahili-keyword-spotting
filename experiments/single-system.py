@@ -67,10 +67,12 @@ if __name__ == "__main__":
             "onebest-word.xml",
             "onebest-morph.xml",
             "onebest-word-to-morph.xml",
+            "onebest-word-plus-grapheme-confusions.xml",
             "STO-reference.xml",
             "STO-onebest-word.xml",
             "STO-onebest-morph.xml",
             "STO-onebest-word-to-morph.xml",
+            "STO-onebest-word-plus-grapheme-confusions.xml",
         ]
 
     main(experiment_name, output_file_names)

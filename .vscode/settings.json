@@ -14,6 +14,7 @@
     "python.analysis.extraPaths": [
         "./src",
         "./src/kws",
-        "./system-combination"
+        "./system-combination",
+        "./grapheme-confusions"
     ]
 }

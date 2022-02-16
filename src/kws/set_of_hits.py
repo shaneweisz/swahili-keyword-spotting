@@ -6,8 +6,10 @@ from typing import Dict
 
 from bs4 import BeautifulSoup
 from index import Index
+from queries import Queries
 from util.file_writer import write_to_file
 from hits import Hit, HitList
+from oov_to_iv import GraphemeConfusions
 
 
 HITS_FILE_HEADER = '<kwslist kwlist_filename="IARPA-babel202b-v1.0d_conv-dev.kwlist.xml" language="swahili" system_id="">\n'  # noqa
@@ -21,10 +23,16 @@ class SetOfHits:
         self.kwid_to_hits: Dict[str, HitList] = kwid_to_hits
 
     @classmethod
-    def from_search(cls, queries: Dict[str, str], index: Index):
+    def from_search(cls, queries: Queries, index: Index, use_oov_proxies: bool):
         kwid_to_hits = dict()
-        for kwid, kwtext in queries.items():
-            kwid_to_hits[kwid] = index.search(kwtext)
+        for kwid, kwtext in queries.queries_dict.items():
+            search_text = kwtext
+            if use_oov_proxies and queries.is_oov(kwid):
+                query_words = kwtext.split(" ")
+                gc = GraphemeConfusions()
+                iv_words = [gc.closest_iv_word(word)[0] for word in query_words]
+                search_text = " ".join(iv_words)
+            kwid_to_hits[kwid] = index.search(search_text)
         set_of_hits = cls(kwid_to_hits)
         return set_of_hits
 

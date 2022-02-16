@@ -21,8 +21,3 @@ def normalise_confusion_dict(confusion_dict):
         for c2 in confusion_dict[c1]:
             confusion_dict[c1][c2] = confusion_dict[c1][c2] / tot
     return confusion_dict
-
-
-d = get_confusion_dict()
-d = normalise_confusion_dict(d)
-print(d)
