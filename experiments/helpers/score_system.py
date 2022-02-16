@@ -33,11 +33,29 @@ def run_termselect_command(output_file_path: str, iv_oov_tag: str = "all"):
     return mtwv, threshold
 
 
+def run_termselect_command_for_query_length(
+    output_file_path: str, query_length: str = "all"
+):
+    TERMSELECT_COMMAND = f"{SCRIPTS_PATH}/termselect.sh {QUERIES_PATH}/query-length.map {output_file_path} {SCORING_PATH} {query_length}"  # noqa
+    termselect_process = subprocess.run(
+        TERMSELECT_COMMAND, shell=True, capture_output=True
+    )
+    scoring_output = termselect_process.stdout.decode("utf-8")
+    mtwv, threshold = extract_MTWV_from_output(scoring_output)
+    return mtwv, threshold
+
+
 def extract_MTWV_from_output(scoring_output: str) -> Tuple[float, float]:
     """
     scoring_output : str
         Example: "all TWV=0.318940153583907 theshold=0.043 number=488\n"
     """
     number_regex = r"\d*\.\d+|\d+"
-    mtwv, threshold, _ = re.findall(number_regex, scoring_output)
+
+    twv_text = scoring_output.split()[1]
+    mtwv = re.findall(number_regex, twv_text)[0]
+
+    threshold_text = scoring_output.split()[2]
+    threshold = re.findall(number_regex, threshold_text)[0]
+
     return float(mtwv), float(threshold)
