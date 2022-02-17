@@ -1,9 +1,9 @@
 System,All,IV,OOV,Threshold
-onebest-word_+_onebest-morph_WCombMNZ.xml,0.348,0.420,0.068,0.065
-onebest-word_+_onebest-morph_WCombMNZ-STO.xml,0.355,0.429,0.068,0.036
-STO-onebest-word_+_STO-onebest-morph_WCombMNZ.xml,0.361,0.437,0.068,0.076
-STO-onebest-word_+_STO-onebest-morph_WCombMNZ-STO.xml,0.361,0.437,0.068,0.038
-onebest-word-plus-grapheme-confusions_+_onebest-morph_WCombMNZ.xml,0.337,0.420,0.013,0.065
-onebest-word-plus-grapheme-confusions_+_onebest-morph_WCombMNZ-STO.xml,0.363,0.429,0.104,0.036
-STO-onebest-word-plus-grapheme-confusions_+_STO-onebest-morph_WCombMNZ.xml,0.369,0.437,0.105,0.076
-STO-onebest-word-plus-grapheme-confusions_+_STO-onebest-morph_WCombMNZ-STO.xml,0.369,0.437,0.104,0.038
+onebest-word+onebest-morph-WCombMNZ.xml,0.348,0.420,0.068,0.065
+onebest-word+onebest-morph-WCombMNZ-STO.xml,0.355,0.429,0.068,0.036
+STO-onebest-word+STO-onebest-morph-WCombMNZ.xml,0.361,0.437,0.068,0.076
+STO-onebest-word+STO-onebest-morph-WCombMNZ-STO.xml,0.361,0.437,0.068,0.038
+onebest-word-plus-grapheme-confusions+onebest-morph-WCombMNZ.xml,0.337,0.420,0.013,0.065
+onebest-word-plus-grapheme-confusions+onebest-morph-WCombMNZ-STO.xml,0.363,0.429,0.104,0.036
+STO-onebest-word-plus-grapheme-confusions+STO-onebest-morph-WCombMNZ.xml,0.369,0.437,0.105,0.076
+STO-onebest-word-plus-grapheme-confusions+STO-onebest-morph-WCombMNZ-STO.xml,0.369,0.437,0.104,0.038

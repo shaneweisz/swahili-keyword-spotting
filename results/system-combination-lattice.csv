@@ -1,5 +1,5 @@
 System,All,IV,OOV,Threshold
-lattice-word_+_lattice-morph_+_lattice-word-sys2_WCombMNZ.xml,0.412,0.496,0.087,0.195
-attice-word_+_lattice-morph_+_lattice-word-sys2_WCombMNZ-STO.xml,0.553,0.602,0.363,0.031
-STO-lattice-word_+_STO-lattice-morph_+_STO-lattice-word-sys2_WCombMNZ.xml,0.553,0.601,0.365,0.086
-STO-lattice-word_+_STO-lattice-morph_+_STO-lattice-word-sys2_WCombMNZ-STO.xml,0.552,0.601,0.362,0.030
+lattice-word+lattice-morph+lattice-word-sys2-WCombMNZ.xml,0.412,0.496,0.087,0.195
+attice-word+lattice-morph+lattice-word-sys2-WCombMNZ-STO.xml,0.553,0.602,0.363,0.031
+STO-lattice-word+STO-lattice-morph+STO-lattice-word-sys2-WCombMNZ.xml,0.553,0.601,0.365,0.086
+STO-lattice-word+STO-lattice-morph+STO-lattice-word-sys2-WCombMNZ-STO.xml,0.552,0.601,0.362,0.030

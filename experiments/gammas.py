@@ -5,10 +5,10 @@ from kws.set_of_hits import SetOfHits
 experiment_name = "gammas"
 
 output_file_names_to_score = [
-    "reference.xml",
     "onebest-word.xml",
     "onebest-morph.xml",
     "onebest-word-to-morph.xml",
+    "onebest-word-plus-grapheme-confusions.xml",
 ]
 
 RESULTS_HEADER = "file,gamma,all,iv,oov"

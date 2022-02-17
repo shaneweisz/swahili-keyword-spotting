@@ -21,7 +21,7 @@ def main(experiment_name, systems_sets):
         for method in methods:
             combined_set_of_hits = combine_sets_of_hits(sets_of_hits, method, weights)
 
-            output_file_name = "_+_".join(systems) + "_" + method + ".xml"
+            output_file_name = "+".join(systems) + "-" + method + ".xml"
             output_file_path = OUTPUT_PATH / "system-combination" / output_file_name
             combined_set_of_hits.write_hits_to_file(output_file_path)
             mtwvs = get_MTWVs_for_output_file(output_file_path)

@@ -19,3 +19,8 @@ onebest-word-to-morph,1,0.319,0.396,0.018
 onebest-word-to-morph,2,0.318,0.396,0.018
 onebest-word-to-morph,3,0.316,0.393,0.018
 onebest-word-to-morph,4,0.315,0.391,0.018
+onebest-word-plus-grapheme-confusions,0,0.332,0.401,0.064
+onebest-word-plus-grapheme-confusions,1,0.333,0.402,0.066
+onebest-word-plus-grapheme-confusions,2,0.334,0.403,0.068
+onebest-word-plus-grapheme-confusions,3,0.333,0.401,0.068
+onebest-word-plus-grapheme-confusions,4,0.326,0.394,0.061
