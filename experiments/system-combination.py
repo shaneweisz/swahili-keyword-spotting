@@ -103,6 +103,14 @@ if __name__ == "__main__":
         systems_sets = [
             (["onebest-word", "onebest-morph"], [0.319, 0.318]),
             (["STO-onebest-word", "STO-onebest-morph"], [0.32, 0.326]),
+            (
+                ["onebest-word-plus-grapheme-confusions", "onebest-morph"],
+                [0.313, 0.318],
+            ),
+            (
+                ["STO-onebest-word-plus-grapheme-confusions", "STO-onebest-morph"],
+                [0.333, 0.326],
+            ),
         ]
 
     main(experiment_name, systems_sets)
