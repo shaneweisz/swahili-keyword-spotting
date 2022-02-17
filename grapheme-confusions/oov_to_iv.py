@@ -8,6 +8,9 @@ class GraphemeConfusions:
         self.confusion_dict = normalise_confusion_dict(self.confusion_dict)
         self.iv_words = get_iv_words()
 
+    def is_iv_word(self, word):
+        return word in self.iv_words
+
     def closest_iv_word(self, oov_word):
         min_dist = 1000000000
         min_dist_iv_word = None
@@ -16,7 +19,7 @@ class GraphemeConfusions:
             if dist < min_dist:
                 min_dist = dist
                 min_dist_iv_word = iv_word
-        return min_dist_iv_word, min_dist
+        return min_dist_iv_word
 
     def weighted_lev_distance(self, s0, s1):
         if s0 == s1:
@@ -45,6 +48,12 @@ class GraphemeConfusions:
             v0, v1 = v1, v0
 
         return v0[len(s1)]
+
+    def similarity_prob(self, s0, s1):
+        m_len = max(len(s0), len(s1))
+        if m_len == 0:
+            return 0.0
+        return 1.0 - self.weighted_lev_distance(s0, s1) / m_len
 
     def insertion_cost_fn(self, char):
         return 1 - self.confusion_dict["sil"][char]

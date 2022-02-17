@@ -50,7 +50,7 @@ def extract_MTWV_from_output(scoring_output: str) -> Tuple[float, float]:
     scoring_output : str
         Example: "all TWV=0.318940153583907 theshold=0.043 number=488\n"
     """
-    number_regex = r"\d*\.\d+|\d+"
+    number_regex = r"[-+]?\d*\.\d+|\d+"
 
     twv_text = scoring_output.split()[1]
     mtwv = re.findall(number_regex, twv_text)[0]

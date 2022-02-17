@@ -3,7 +3,7 @@ reference.xml,1.000,1.000,1.000
 onebest-word.xml,0.319,0.401,0.000
 onebest-morph.xml,0.318,0.383,0.068
 onebest-word-to-morph.xml,0.314,0.390,0.018
-onebest-word-plus-grapheme-confusions.xml,0.313,0.401,0.028
+onebest-word-plus-grapheme-confusions.xml,0.313,0.401,-0.028
 STO-reference.xml,1.000,1.000,1.000
 STO-onebest-word.xml,0.320,0.402,0.000
 STO-onebest-morph.xml,0.326,0.393,0.068

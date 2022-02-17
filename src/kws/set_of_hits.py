@@ -25,14 +25,31 @@ class SetOfHits:
     @classmethod
     def from_search(cls, queries: Queries, index: Index, use_oov_proxies: bool):
         kwid_to_hits = dict()
+        if use_oov_proxies:
+            gc = GraphemeConfusions()
         for kwid, kwtext in queries.queries_dict.items():
             search_text = kwtext
+
             if use_oov_proxies and queries.is_oov(kwid):
                 query_words = kwtext.split(" ")
-                gc = GraphemeConfusions()
-                iv_words = [gc.closest_iv_word(word)[0] for word in query_words]
+                iv_words = []
+                downweight_score_by = 1
+                for word in query_words:
+                    if gc.is_iv_word(word):
+                        iv_words.append(word)
+                    else:
+                        closest_iv_word = gc.closest_iv_word(word)
+                        downweight_score_by *= gc.similarity_prob(word, closest_iv_word)
+                        iv_words.append(closest_iv_word)
                 search_text = " ".join(iv_words)
-            kwid_to_hits[kwid] = index.search(search_text)
+
+            hit_list = index.search(search_text)
+
+            if use_oov_proxies and queries.is_oov(kwid):
+                for hit in hit_list.hit_list:
+                    hit.score *= downweight_score_by
+
+            kwid_to_hits[kwid] = hit_list
         set_of_hits = cls(kwid_to_hits)
         return set_of_hits
 
